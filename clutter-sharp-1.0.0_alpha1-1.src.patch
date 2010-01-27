@@ -1,0 +1,57 @@
+--- origsrc/clutter-sharp/clutter/Cogl/Makefile.am	2009-12-04 03:58:30.000000000 -0600
++++ src/clutter-sharp/clutter/Cogl/Makefile.am	2009-12-04 04:03:09.853735400 -0600
+@@ -1,7 +1,7 @@
+ GAPI_SOURCES_XML = $(srcdir)/cogl-sources.xml
+ GAPI_METADATA = $(srcdir)/cogl.metadata
+ GAPI_RAW_API = $(srcdir)/cogl-api.raw
+-GAPI_SYMBOLS = $(srcdir)/cogl-symbols.xml
++GAPI_SYMBOLS = cogl-symbols.xml
+ 
+ GAPI_FIXED_API = $(builddir)/cogl-api.xml
+ 
+--- origsrc/clutter-sharp/clutter/clutter-sharp.dll.config.in	2009-12-04 03:58:30.000000000 -0600
++++ src/clutter-sharp/clutter/clutter-sharp.dll.config.in	2009-12-04 03:59:52.435391200 -0600
+@@ -1,8 +1,7 @@
+ <configuration>
+   <dllmap 
+     dll="libclutter-win32-@CLUTTER_API_VERSION@-0.dll"
+-    target="libclutter-@CLUTTER_BACKEND@-@CLUTTER_API_VERSION@.so.0"
++    target="cygclutter-@CLUTTER_BACKEND@-@CLUTTER_API_VERSION@-0.dll"
+   />
+-  <dllmap dll="libgobject-2.0-0.dll" target="libgobject-2.0.so.0"/>
+-  <dllmap dll="gdk-x11" target="libgdk-x11-2.0.so.0"/>
++  <dllmap dll="gdk-x11" target="cyggdk-x11-2.0-0.dll"/>
+ </configuration>
+--- origsrc/clutter-sharp/clutter-gtk/clutter-gtk-sharp.dll.config.in	2009-12-04 03:58:30.000000000 -0600
++++ src/clutter-sharp/clutter-gtk/clutter-gtk-sharp.dll.config.in	2009-12-04 03:59:31.437754600 -0600
+@@ -1,7 +1,6 @@
+ <configuration>
+   <dllmap 
+     dll="libclutter-gtk-win32-@CLUTTER_GTK_API_VERSION@-0.dll"
+-    target="libclutter-gtk-@CLUTTER_GTK_API_VERSION@.so.0"
++    target="cygclutter-gtk-@CLUTTER_GTK_API_VERSION@-0.dll"
+   />
+-  <dllmap dll="libgobject-2.0-0.dll" target="libgobject-2.0.so.0"/>
+ </configuration>
+--- origsrc/clutter-sharp/configure.ac	2009-12-04 03:58:30.000000000 -0600
++++ src/clutter-sharp/configure.ac	2009-12-04 03:59:01.423302300 -0600
+@@ -80,7 +80,7 @@ AC_SUBST(GTKSHARP_LIBS)
+ 
+ dnl check for clutter
+ PKG_CHECK_MODULES(CLUTTER, clutter-1.0 >= 1.0.1)
+-PKG_CHECK_MODULES(CLUTTER_GTK, clutter-gtk-0.10 >= 0.10.3, enable_gtk=yes, enable_gtk=no)
++PKG_CHECK_MODULES(CLUTTER_GTK, clutter-gtk-0.10 >= 0.10.2, enable_gtk=yes, enable_gtk=no)
+ 
+ AM_CONDITIONAL(ENABLE_GTK, test "x$enable_gtk" = "xyes")
+ 
+--- origsrc/clutter-sharp/glib/Makefile.am	2009-12-04 03:58:31.000000000 -0600
++++ src/clutter-sharp/glib/Makefile.am	2009-12-04 04:02:10.168031300 -0600
+@@ -1,7 +1,6 @@
+ assemblydir = $(prefix)/lib/clutter-sharp
+ assembly_DATA = \
+-	glib-sharp.dll \
+-	glib-sharp.dll.config
++	glib-sharp.dll
+ 
+ .PHONY: patch-glib
+ 

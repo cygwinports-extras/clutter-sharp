@@ -1,0 +1,2 @@
+GIT_URI="git://git.clutter-project.org/bindings/clutter-sharp"
+inherit mono git
